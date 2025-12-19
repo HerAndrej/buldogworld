@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sr" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bulldog World | Kako odgajati Francuskog buldoga</title>
+    
+    <!-- Payhip SDK - Postavljen kao prvi element -->
+    <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cream: {
+                50: '#FDFCF8',
+                100: '#FAF9F6',
+                200: '#F2F0E9',
+              },
+              brand: {
+                orange: '#E67E5C',
+                dark: '#2D2A26',
+                light: '#E0F2F1',
+                accent: '#F4A261',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'bounce-slow': 'bounce 3s infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scale-up': 'scaleUp 0.3s ease-out forwards',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              scaleUp: {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* TOTAL RESET ZA PAYHIP DUGMICE - Vracamo tvoj dizajn */
+      .payhip-buy-button {
+        all: unset !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-sizing: border-box !important;
+        
+        /* Tvoj originalni stil */
+        background-color: #E67E5C !important; /* Originalna narandzasta */
+        color: white !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 1.125rem !important; /* text-lg */
+        font-weight: 600 !important;
+        padding: 1rem 2rem !important; /* px-8 py-4 */
+        border-radius: 9999px !important; /* rounded-full */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 10px 15px -3px rgba(230, 126, 92, 0.3) !important;
+        text-decoration: none !important;
+        position: relative !important;
+      }
+
+      .payhip-buy-button:hover {
+        background-color: #D66C4A !important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 20px 25px -5px rgba(230, 126, 92, 0.4) !important;
+      }
+
+      .payhip-buy-button:active {
+        transform: translateY(-2px) !important;
+      }
+
+      /* Specijalna klasa za sekundarno (crno) dugme */
+      .payhip-buy-button-secondary {
+        background-color: #2D2A26 !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .payhip-buy-button-secondary:hover {
+        background-color: #1a1816 !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
+      }
+
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-cream-100 text-brand-dark antialiased selection:bg-brand-orange selection:text-white overflow-x-hidden">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
