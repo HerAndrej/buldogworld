@@ -12,26 +12,29 @@ import { Guarantee } from './components/Guarantee';
 import { FAQ } from './components/FAQ';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
-      <Header />
-      <main className="flex-grow">
-        <Hero />
-        <Problems />
-        <BeforeAfter />
-        <Solution />
-        <Expertise />
-        <Curriculum />
-        <Testimonials />
-        <Gallery />
-        <Guarantee />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
+        <Header />
+        <main className="flex-grow">
+          <Hero />
+          <Problems />
+          <BeforeAfter />
+          <Solution />
+          <Expertise />
+          <Curriculum />
+          <Testimonials />
+          <Gallery />
+          <Guarantee />
+          <FAQ />
+          <FinalCTA />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 };
 

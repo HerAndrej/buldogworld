@@ -1,8 +1,11 @@
 import React from 'react';
 import { Award, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Button } from './Button';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Solution: React.FC = () => {
+  const t = useTranslations();
+
   return (
     <section className="py-24 bg-brand-dark text-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
@@ -23,7 +26,7 @@ export const Solution: React.FC = () => {
                    />
                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 to-transparent"></div>
                    <div className="absolute bottom-6 left-6 text-white">
-                      <p className="font-bold text-lg">Vaš vodič do srećnog psa</p>
+                      <p className="font-bold text-lg">{t('solution_image_caption')}</p>
                    </div>
                 </div>
                 <div className="absolute -bottom-8 left-10 right-10 h-8 bg-black/40 blur-xl rounded-[100%]"></div>
@@ -32,10 +35,10 @@ export const Solution: React.FC = () => {
 
           <div className="w-full lg:w-1/2 space-y-8">
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              Konačno rešenje za sve vaše nedoumice
+              {t('solution_title')}
             </h2>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Zaboravite na kontradiktorne savete sa interneta i foruma. Ovaj e-book je nastao u saradnji sa iskusnim odgajivačima i veterinarima specijalizovanim za brahicefalične rase.
+              {t('solution_subtitle')}
             </p>
             
             <div className="space-y-6">
@@ -44,8 +47,8 @@ export const Solution: React.FC = () => {
                   <Award size={24} />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold mb-1">Proverene informacije</h4>
-                  <p className="text-gray-400">Bez nagađanja. Samo metode koje dokazano funkcionišu za francuze.</p>
+                  <h4 className="text-xl font-bold mb-1">{t('solution_feature_1_title')}</h4>
+                  <p className="text-gray-400">{t('solution_feature_1_description')}</p>
                 </div>
               </div>
               
@@ -54,19 +57,18 @@ export const Solution: React.FC = () => {
                   <ShieldCheck size={24} />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold mb-1">Fokus na zdravlje</h4>
-                  <p className="text-gray-400">Poseban akcenat na preventivu najčešćih bolesti i dugovečnost vašeg psa.</p>
+                  <h4 className="text-xl font-bold mb-1">{t('solution_feature_2_title')}</h4>
+                  <p className="text-gray-400">{t('solution_feature_2_description')}</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-4">
               <Button 
-                href="https://payhip.com/b/vaAPR" 
-                className="group payhip-buy-button"
-                data-product="vaAPR"
+                onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                className="group"
               >
-                Kupi Odmah
+                {t('solution_cta')}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

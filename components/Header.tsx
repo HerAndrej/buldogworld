@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './Button';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Header: React.FC = () => {
+  const t = useTranslations();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -43,22 +46,23 @@ export const Header: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <button onClick={() => scrollToSection('problems')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">Problemi</button>
-          <button onClick={() => scrollToSection('curriculum')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">Sadržaj</button>
-          <button onClick={() => scrollToSection('testimonials')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">Iskustva</button>
-          <button onClick={() => scrollToSection('gallery')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">Galerija</button>
-          <button onClick={() => scrollToSection('faq')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">FAQ</button>
+          <button onClick={() => scrollToSection('problems')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_problems')}</button>
+          <button onClick={() => scrollToSection('curriculum')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_curriculum')}</button>
+          <button onClick={() => scrollToSection('testimonials')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_testimonials')}</button>
+          <button onClick={() => scrollToSection('gallery')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_gallery')}</button>
+          <button onClick={() => scrollToSection('faq')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_faq')}</button>
         </nav>
 
-        {/* CTA */}
-        <div className="hidden md:block">
+        {/* Language Switcher & CTA */}
+        <div className="hidden md:flex items-center gap-6">
+          <LanguageSwitcher />
           <Button 
             variant={isScrolled ? 'primary' : 'secondary'} 
             className="!px-6 !py-2 !text-base payhip-buy-button"
             href="https://payhip.com/b/vaAPR"
             data-product="vaAPR"
           >
-            Naruči Vodič
+            {t('order_guide')}
           </Button>
         </div>
 
@@ -74,18 +78,21 @@ export const Header: React.FC = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-xl p-4 flex flex-col gap-4 md:hidden animate-fade-in-down border-t border-gray-100">
-          <button onClick={() => scrollToSection('problems')} className="text-left p-2 text-lg font-medium text-gray-700">Problemi</button>
-          <button onClick={() => scrollToSection('curriculum')} className="text-left p-2 text-lg font-medium text-gray-700">Sadržaj</button>
-          <button onClick={() => scrollToSection('testimonials')} className="text-left p-2 text-lg font-medium text-gray-700">Iskustva</button>
-          <button onClick={() => scrollToSection('gallery')} className="text-left p-2 text-lg font-medium text-gray-700">Galerija</button>
-          <button onClick={() => scrollToSection('faq')} className="text-left p-2 text-lg font-medium text-gray-700">FAQ</button>
+          <button onClick={() => scrollToSection('problems')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_problems')}</button>
+          <button onClick={() => scrollToSection('curriculum')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_curriculum')}</button>
+          <button onClick={() => scrollToSection('testimonials')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_testimonials')}</button>
+          <button onClick={() => scrollToSection('gallery')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_gallery')}</button>
+          <button onClick={() => scrollToSection('faq')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_faq')}</button>
+          <div className="border-t border-gray-100 pt-4">
+            <LanguageSwitcher />
+          </div>
           <Button 
             href="https://payhip.com/b/vaAPR" 
             className="payhip-buy-button" 
             data-product="vaAPR"
             fullWidth
           >
-            Naruči Vodič
+            {t('order_guide')}
           </Button>
         </div>
       )}

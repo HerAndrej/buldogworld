@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './Button';
 import { CheckCircle2, Star, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Hero: React.FC = () => {
+  const t = useTranslations();
   const [ownerCount, setOwnerCount] = useState(0);
 
   useEffect(() => {
@@ -39,36 +41,34 @@ export const Hero: React.FC = () => {
                   {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="currentColor" />)}
                 </span>
                 <span className="text-gray-600 border-l border-gray-200 pl-2 ml-1">
-                  Preko <strong>{ownerCount.toLocaleString()}+</strong> vlasnika
+                  {t('hero_over')} <strong>{ownerCount.toLocaleString()}+</strong> {t('hero_owners')}
                 </span>
               </div>
             </Reveal>
             
             <Reveal delay={400}>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-brand-dark tracking-tight">
-                Odgajite srećnog i zdravog <span className="text-brand-orange">Francuskog buldoga</span> bez stresa
+                {t('hero_title_part1')} <span className="text-brand-orange">{t('hero_title_part2')}</span> {t('hero_title_part3')}
               </h1>
             </Reveal>
             
             <Reveal delay={600}>
               <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                Kompletan vodič kroz ishranu, zdravlje, vaspitanje i negu. 
-                Sve što niste znali, a veterinar vam nije rekao – na jednom mestu.
+                {t('hero_subtitle')}
               </p>
             </Reveal>
 
             <Reveal delay={800}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  href="https://payhip.com/b/vaAPR" 
-                  className="group payhip-buy-button"
-                  data-product="vaAPR"
+                  onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                  className="group"
                 >
-                  Kupi Odmah
+                  {t('order_guide')}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button variant="outline" onClick={() => document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth'})}>
-                  Sadržaj Knjige
+                  {t('see_content')}
                 </Button>
               </div>
             </Reveal>
@@ -77,11 +77,11 @@ export const Hero: React.FC = () => {
               <div className="pt-2 flex flex-col sm:flex-row gap-6 justify-center text-sm text-gray-500 font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="text-brand-orange" size={20} />
-                  <span>Instant preuzimanje</span>
+                  <span>{t('hero_instant_download')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="text-brand-orange" size={20} />
-                  <span>Doživotni pristup</span>
+                  <span>{t('hero_lifetime_access')}</span>
                 </div>
               </div>
             </Reveal>
@@ -105,8 +105,8 @@ export const Hero: React.FC = () => {
                   <CheckCircle2 className="text-green-600" size={24} />
                 </div>
                 <div>
-                  <p className="font-bold text-brand-dark">Veterinarski</p>
-                  <p className="text-xs text-gray-500">odobrili stručnjaci</p>
+                  <p className="font-bold text-brand-dark">{t('hero_vet_approved')}</p>
+                  <p className="text-xs text-gray-500">{t('hero_approved_by_experts')}</p>
                 </div>
               </div>
             </div>

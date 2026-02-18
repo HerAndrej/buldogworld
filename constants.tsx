@@ -36,7 +36,7 @@ export const FEATURES: Feature[] = [
   { 
     id: 1, 
     title: "Ishrana i Zdravlje", 
-    description: "Tačan plan ishrane za sprečavanje alergija i gojaznosti.", 
+    description: "Lista zabranjenih namirnica za vašeg psa.", 
     icon: Utensils 
   },
   { 
@@ -120,14 +120,14 @@ export const CURRICULUM: CurriculumItem[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    name: "Marko Petrović",
+    name: "Jelena Petrović",
     location: "Beograd",
-    text: "Mislio sam da je nemoguće naučiti mog Baksija da ne grize nameštaj. Ovaj vodič mi je spasio garnituru! Sve preporuke.",
+    text: "Mislila sam da je nemoguće naučiti mog Baksija da ne grize nameštaj. Ovaj vodič mi je spasio garnituru! Sve preporuke.",
     image: "https://picsum.photos/100/100?random=1"
   },
   {
     id: 2,
-    name: "Jelena Nikolić",
+    name: "Marko Nikolić",
     location: "Novi Sad",
     text: "Najkorisniji deo mi je bio o ishrani. Napokon smo rešili problem sa alergijama i svrabom. Hvala Bulldog World!",
     image: "https://picsum.photos/100/100?random=2"

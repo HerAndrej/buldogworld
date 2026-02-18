@@ -1,8 +1,11 @@
 import React from 'react';
 import { ShieldCheck, Lock, Award } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Guarantee: React.FC = () => {
+  const t = useTranslations();
+
   return (
     <section className="py-20 bg-cream-50 border-y border-cream-200">
       <div className="container mx-auto px-4 md:px-8">
@@ -18,20 +21,20 @@ export const Guarantee: React.FC = () => {
 
             <div className="flex-1 space-y-4">
               <h3 className="text-2xl md:text-3xl font-bold text-brand-dark">
-                30 Dana Garancija Povrata Novca
+                {t('guarantee_title')}
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Toliko smo sigurni u kvalitet našeg vodiča da vam nudimo potpunu zaštitu. Ako u roku od 30 dana ne vidite napredak kod svog psa, vraćamo vam novac bez ikakvih pitanja.
+                {t('guarantee_subtitle')}
               </p>
               
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
                 <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
                   <Lock size={14} className="text-green-500" />
-                  SSL Sigurna kupovina
+                  {t('ssl_secure_purchase')}
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
                   <Award size={14} className="text-brand-orange" />
-                  Premium kvalitet
+                  {t('premium_quality')}
                 </div>
               </div>
             </div>

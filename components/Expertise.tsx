@@ -2,8 +2,11 @@ import React from 'react';
 import { HeartHandshake, Award, BookCheck, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { Button } from './Button';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Expertise: React.FC = () => {
+  const t = useTranslations();
+
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8">
@@ -14,12 +17,12 @@ export const Expertise: React.FC = () => {
                 <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-square lg:aspect-[4/5]">
                   <img 
                     src="https://iili.io/fcB7z2S.webp" 
-                    alt="Vlasnik sa psom" 
+                    alt={t('expertise_image_alt')}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
                     <div className="text-white">
-                      <p className="font-serif text-2xl italic">"Francuski buldozi nisu samo psi, oni su članovi porodice."</p>
+                      <p className="font-serif text-2xl italic">"{t('expertise_image_caption')}"</p>
                     </div>
                   </div>
                 </div>
@@ -31,13 +34,13 @@ export const Expertise: React.FC = () => {
           <div className="w-full lg:w-1/2 space-y-8">
             <Reveal>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark">
-                Zašto sam napisao ovaj vodič?
+                {t('expertise_title')}
               </h2>
             </Reveal>
             
             <Reveal delay={200}>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Kao dugogodišnji vlasnik i ljubitelj rase, prošao sam kroz sve faze – od panike zbog čudnog disanja do beskrajnih poseta veterinaru zbog alergija. Shvatio sam da <strong>ne postoji jedinstveno mesto</strong> gde možete naći proverene informacije specifične za naše "francuze".
+                {t('expertise_subtitle')}
               </p>
             </Reveal>
 
@@ -48,8 +51,8 @@ export const Expertise: React.FC = () => {
                     <HeartHandshake size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-brand-dark">Iskustvo iz prve ruke</h4>
-                    <p className="text-gray-600">Pretočeno 7 godina suživota i učenja u jasne korake.</p>
+                    <h4 className="font-bold text-lg text-brand-dark">{t('expertise_feature_1_title')}</h4>
+                    <p className="text-gray-600">{t('expertise_feature_1_description')}</p>
                   </div>
                 </div>
               </Reveal>
@@ -60,8 +63,8 @@ export const Expertise: React.FC = () => {
                     <Award size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-brand-dark">Veterinarska saradnja</h4>
-                    <p className="text-gray-600">Svi zdravstveni saveti su pregledani i odobreni od strane stručnjaka.</p>
+                    <h4 className="font-bold text-lg text-brand-dark">{t('expertise_feature_2_title')}</h4>
+                    <p className="text-gray-600">{t('expertise_feature_2_description')}</p>
                   </div>
                 </div>
               </Reveal>
@@ -72,8 +75,8 @@ export const Expertise: React.FC = () => {
                     <BookCheck size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-brand-dark">Praktično i primenljivo</h4>
-                    <p className="text-gray-600">Bez suvoparne teorije, samo rešenja koja rade u praksi.</p>
+                    <h4 className="font-bold text-lg text-brand-dark">{t('expertise_feature_3_title')}</h4>
+                    <p className="text-gray-600">{t('expertise_feature_3_description')}</p>
                   </div>
                 </div>
               </Reveal>
@@ -81,11 +84,10 @@ export const Expertise: React.FC = () => {
 
             <Reveal delay={600} width="100%">
               <Button 
-                href="https://payhip.com/b/vaAPR" 
-                className="group mt-4 payhip-buy-button"
-                data-product="vaAPR"
+                onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                className="group mt-4"
               >
-                Kupi Odmah
+                {t('buy_now')}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Reveal>

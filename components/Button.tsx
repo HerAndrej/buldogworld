@@ -26,10 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   const widthClass = fullWidth ? "w-full" : "";
   
-  // Ako je u pitanju Payhip dugme, dodajemo specijalnu klasu za sekundarno dugme ako je potrebno
-  const payhipSecondaryClass = (href && variant === 'secondary') ? 'payhip-buy-button-secondary' : '';
-  
-  const combinedClasses = `${baseStyles} ${variants[variant]} ${widthClass} ${payhipSecondaryClass} ${className}`;
+  const combinedClasses = `${baseStyles} ${variants[variant]} ${widthClass} ${className}`;
 
   if (href) {
     return (

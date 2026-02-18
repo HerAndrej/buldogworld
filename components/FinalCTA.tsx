@@ -2,8 +2,11 @@ import React from 'react';
 import { Button } from './Button';
 import { Check, ShieldCheck, Download, Zap, Star } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const FinalCTA: React.FC = () => {
+  const t = useTranslations();
+
   return (
     <section id="pricing" className="py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -22,16 +25,16 @@ export const FinalCTA: React.FC = () => {
                     <span className="flex text-yellow-400 gap-0.5">
                         {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
                     </span>
-                    <span className="text-gray-200 text-sm font-medium ml-2">Preko 1,500 zadovoljnih vlasnika</span>
+                    <span className="text-gray-200 text-sm font-medium ml-2">{t('cta_over_1500_owners')}</span>
                 </div>
                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-tight">
-                  Postanite ekspert za svog <br/> <span className="text-brand-orange">Francuskog buldoga</span>
+                  {t('cta_title')} <br/> <span className="text-brand-orange">{t('hero_title_part2')}</span>
                 </h2>
               </Reveal>
 
               <Reveal delay={400}>
                 <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-                  Investirajte u zdravlje i sreću svog psa danas. Jednokratna uplata za znanje koje traje ceo život.
+                  {t('cta_subtitle')}
                 </p>
               </Reveal>
 
@@ -42,7 +45,7 @@ export const FinalCTA: React.FC = () => {
                         
                         {/* Badge */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] py-1.5 px-6 rounded-b-xl shadow-lg shadow-brand-orange/30 z-10 w-max">
-                            Specijalna Ponuda
+                            {t('special_offer')}
                         </div>
 
                         <div className="text-center mb-10 mt-6">
@@ -55,17 +58,17 @@ export const FinalCTA: React.FC = () => {
                             </div>
                             <div className="mt-4 inline-flex items-center gap-1.5 bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-medium">
                                 <Zap size={14} fill="currentColor" />
-                                <span>Ušteda preko 40%</span>
+                                <span>{t('save_over_40_percent')}</span>
                             </div>
                         </div>
 
                         <div className="space-y-4 mb-10 text-left w-full">
                              {[
-                                "Kompletna e-knjiga (PDF)",
-                                "Bonus: Plan ishrane",
-                                "Bonus: Lista zabranjenih namirnica",
-                                "Doživotna ažuriranja",
-                                "Pristup privatnoj Facebook grupi"
+                                t('feature_ebook'),
+                                t('feature_audio'),
+                                t('feature_bonus_diet'),
+                                t('feature_bonus_foods'),
+                                t('feature_lifetime_updates')
                              ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-3 group">
                                     <div className="bg-brand-orange rounded-full p-0.5 mt-0.5 group-hover:scale-110 transition-transform">
@@ -78,18 +81,16 @@ export const FinalCTA: React.FC = () => {
 
                         <Button 
                           fullWidth 
-                          href="https://payhip.com/b/vaAPR"
-                          className="payhip-buy-button"
-                          data-product="vaAPR"
+                          onClick={() => window.open('https://payhip.com/b/vaAPR', '_self')}
                         >
-                            Preuzmi Vodič Odmah
+                            {t('buy_now')}
                         </Button>
 
                         <div className="mt-6 flex flex-col gap-2 text-[11px] md:text-xs text-gray-400 font-medium text-center">
                             <div className="flex items-center justify-center gap-4">
-                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} /> 30 dana garancija</span>
+                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} /> {t('30_day_guarantee')}</span>
                                 <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                                <span className="flex items-center gap-1.5"><Download size={14} /> Instant isporuka</span>
+                                <span className="flex items-center gap-1.5"><Download size={14} /> {t('instant_delivery')}</span>
                             </div>
                         </div>
                     </div>

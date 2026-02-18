@@ -3,24 +3,51 @@ import { TESTIMONIALS } from '../constants';
 import { Quote, Star, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { Button } from './Button';
+import { useTranslations } from '../hooks/useTranslations';
 
 export const Testimonials: React.FC = () => {
+  const t = useTranslations();
+
   const scrollToPricing = () => {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const testimonials = [
+    {
+      id: 1,
+      name: 'Marko Petrović',
+      location: 'Beograd, Srbija',
+      image: 'https://randomuser.me/api/portraits/men/32.jpg',
+      text: t('testimonial_1'),
+    },
+    {
+      id: 2,
+      name: 'Jelena Jovanović',
+      location: 'Novi Sad, Srbija',
+      image: 'https://randomuser.me/api/portraits/women/44.jpg',
+      text: t('testimonial_2'),
+    },
+    {
+      id: 3,
+      name: 'Stefan Schmidt',
+      location: 'Berlin, Nemačka',
+      image: 'https://randomuser.me/api/portraits/men/33.jpg',
+      text: t('testimonial_3'),
+    },
+  ];
 
   return (
     <section id="testimonials" className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         <Reveal width="100%">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-brand-dark mb-16">
-            Šta kažu ponosni vlasnici?
+            {t('testimonials_title')}
           </h2>
         </Reveal>
 
         <div className="relative -mx-4 md:mx-0">
            <div className="flex overflow-x-auto gap-6 px-4 pb-12 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:gap-8 md:overflow-visible">
-            {TESTIMONIALS.map((testimonial, index) => (
+            {testimonials.map((testimonial, index) => (
               <div key={testimonial.id} className="min-w-[85vw] md:min-w-0 snap-center">
                 <Reveal delay={index * 100} width="100%" direction="up" className="h-full">
                   <div 
@@ -62,7 +89,7 @@ export const Testimonials: React.FC = () => {
 
         <Reveal delay={400} width="100%" className="mt-8 flex justify-center">
            <Button onClick={scrollToPricing} className="group">
-             Kupi Odmah
+             {t('buy_now')}
              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
            </Button>
         </Reveal>

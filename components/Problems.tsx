@@ -1,10 +1,19 @@
 import React from 'react';
-import { PROBLEMS } from '../constants';
 import { AlertCircle, HelpCircle, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { Button } from './Button';
+import { useTranslations } from '../hooks/useTranslations';
+
+const PROBLEMS_KEYS = [
+  'problem_1',
+  'problem_2',
+  'problem_3',
+  'problem_4',
+];
 
 export const Problems: React.FC = () => {
+  const t = useTranslations();
+
   return (
     <section id="problems" className="py-24 bg-white relative">
        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
@@ -13,18 +22,17 @@ export const Problems: React.FC = () => {
         <Reveal width="100%">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-dark">
-              Da li se prepoznajete u ovim situacijama?
+              {t('problems_title')}
             </h2>
             <p className="text-lg text-gray-600">
-              Francuski buldozi su divni, ali mogu biti izazovni ako nemate prave informacije.
-              Mnogi vlasnici se suočavaju sa istim problemima.
+              {t('problems_subtitle')}
             </p>
           </div>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {PROBLEMS.map((problem, index) => (
-            <Reveal key={problem.id} delay={index * 100} width="100%" direction="up">
+          {PROBLEMS_KEYS.map((key, index) => (
+            <Reveal key={key} delay={index * 100} width="100%" direction="up">
               <div 
                 className="group h-full p-8 rounded-2xl bg-cream-50 border border-cream-200 hover:border-brand-orange/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col items-start"
               >
@@ -32,7 +40,7 @@ export const Problems: React.FC = () => {
                   <HelpCircle size={32} />
                 </div>
                 <p className="text-lg font-medium text-gray-800 leading-snug">
-                  "{problem.text}"
+                  "{t(key)}"
                 </p>
               </div>
             </Reveal>
@@ -46,7 +54,7 @@ export const Problems: React.FC = () => {
                   <AlertCircle className="text-brand-orange flex-shrink-0" size={32} />
                 </div>
                 <p className="text-lg md:text-xl font-medium text-brand-dark max-w-2xl text-center md:text-left">
-                  Ne brinite, niste sami. Većina ovih problema se rešava <span className="text-brand-orange font-bold decoration-brand-orange/30 underline decoration-2 underline-offset-2">pravilnim znanjem i pristupom</span>.
+                  {t('problems_solution_part1')} <span className="text-brand-orange font-bold decoration-brand-orange/30 underline decoration-2 underline-offset-2">{t('problems_solution_part2')}</span>.
                 </p>
              </div>
              <Button 
@@ -54,7 +62,7 @@ export const Problems: React.FC = () => {
               className="group payhip-buy-button"
               data-product="vaAPR"
             >
-               Kupi Odmah
+               {t('buy_now')}
                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
              </Button>
           </div>
