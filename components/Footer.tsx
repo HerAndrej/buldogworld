@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslations } from '../hooks/useTranslations';
 
 export const Footer: React.FC = () => {
@@ -16,9 +17,9 @@ export const Footer: React.FC = () => {
           {t('footer_subtitle')}
         </p>
         <div className="flex justify-center gap-8 text-sm text-gray-500">
-          <a href="#" className="hover:text-white transition-colors">{t('privacy_policy')}</a>
-          <a href="#" className="hover:text-white transition-colors">{t('terms_of_service')}</a>
-          <a href="#" className="hover:text-white transition-colors">{t('contact')}</a>
+          <Link to="/privacy-policy" className="hover:text-white transition-colors">{t('privacy_policy')}</Link>
+          <Link to="/terms-of-service" className="hover:text-white transition-colors">{t('terms_of_service')}</Link>
+          <Link to="/refund-policy" className="hover:text-white transition-colors">{t('refund_policy')}</Link>
         </div>
         <div className="mt-8 text-xs text-gray-600">
           © {new Date().getFullYear()} Bulldog World. {t('all_rights_reserved')}

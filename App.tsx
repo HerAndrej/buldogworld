@@ -1,39 +1,30 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { Problems } from './components/Problems';
-import { BeforeAfter } from './components/BeforeAfter';
-import { Solution } from './components/Solution';
-import { Expertise } from './components/Expertise';
-import { Curriculum } from './components/Curriculum';
-import { Testimonials } from './components/Testimonials';
-import { Gallery } from './components/Gallery';
-import { Guarantee } from './components/Guarantee';
-import { FAQ } from './components/FAQ';
-import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
+import { Home } from './components/Home';
+import { TermsOfService } from './components/TermsOfService';
+import { RefundPolicy } from './components/RefundPolicy';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
   return (
     <LanguageProvider>
-      <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
-        <Header />
-        <main className="flex-grow">
-          <Hero />
-          <Problems />
-          <BeforeAfter />
-          <Solution />
-          <Expertise />
-          <Curriculum />
-          <Testimonials />
-          <Gallery />
-          <Guarantee />
-          <FAQ />
-          <FinalCTA />
-        </main>
-        <Footer />
-      </div>
+      <Router>
+        <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
     </LanguageProvider>
   );
 };
