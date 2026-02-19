@@ -28,7 +28,7 @@ export const FinalCTA: React.FC = () => {
                     <span className="text-gray-200 text-sm font-medium ml-2">{t('cta_over_1500_owners')}</span>
                 </div>
                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-tight">
-                  {t('cta_title')} <br/> <span className="text-brand-orange">{t('hero_title_part2')}</span>
+                  {t('cta_title')}
                 </h2>
               </Reveal>
 
@@ -81,7 +81,7 @@ export const FinalCTA: React.FC = () => {
 
                         <Button 
                           fullWidth 
-                          onClick={() => window.open('https://payhip.com/b/vaAPR', '_self')}
+                          onClick={() => window.open('https://payhip.com/buy?link[]=vaAPR&parent_url=https%3A%2F%2Fwww.bulldogworlds.com%2F&type=fallback_direct&s=1&cart_links[]=vaAPR&qty[vaAPR]=1', '_self')}
                         >
                             {t('buy_now')}
                         </Button>

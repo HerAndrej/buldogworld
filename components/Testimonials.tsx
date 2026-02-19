@@ -15,16 +15,16 @@ export const Testimonials: React.FC = () => {
   const testimonials = [
     {
       id: 1,
-      name: 'Marko Petrović',
-      location: 'Beograd, Srbija',
-      image: 'https://randomuser.me/api/portraits/men/32.jpg',
+      name: 'Jelena Jovanović',
+      location: 'Novi Sad, Srbija',
+      image: 'https://randomuser.me/api/portraits/women/44.jpg',
       text: t('testimonial_1'),
     },
     {
       id: 2,
-      name: 'Jelena Jovanović',
-      location: 'Novi Sad, Srbija',
-      image: 'https://randomuser.me/api/portraits/women/44.jpg',
+      name: 'Marko Petrović',
+      location: 'Beograd, Srbija',
+      image: 'https://randomuser.me/api/portraits/men/32.jpg',
       text: t('testimonial_2'),
     },
     {
@@ -84,7 +84,7 @@ export const Testimonials: React.FC = () => {
             ))}
           </div>
           <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-white to-transparent md:hidden pointer-events-none"></div>
-          <div className="absolute top-0 left-0 h-full w-4 bg-gradient-to-r from-white to-transparent md:hidden pointer-events-none"></div>
+          <div className="absolute top-0 left-0 h-full w-4 bg-gradient-to-r from-white to-transparent md-hidden pointer-events-none"></div>
         </div>
 
         <Reveal delay={400} width="100%" className="mt-8 flex justify-center">

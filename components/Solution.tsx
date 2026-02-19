@@ -65,7 +65,7 @@ export const Solution: React.FC = () => {
 
             <div className="pt-4">
               <Button 
-                onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth'})} 
                 className="group"
               >
                 {t('solution_cta')}

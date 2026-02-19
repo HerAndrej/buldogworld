@@ -6,6 +6,22 @@ import { useTranslations } from '../hooks/useTranslations';
 
 export const Expertise: React.FC = () => {
   const t = useTranslations();
+  const currentLanguage = localStorage.getItem('language') || 'en';
+
+  const getImageForLanguage = () => {
+    switch (currentLanguage) {
+      case 'de':
+        return 'https://iili.io/q2Q0667.jpg';
+      case 'sr':
+        return 'https://iili.io/q2Q0L8u.jpg';
+      case 'en':
+        return 'https://iili.io/q2Q0sae.md.jpg';
+      case 'ru':
+        return 'https://iili.io/q2Q0iF9.jpg';
+      default:
+        return 'https://iili.io/fcB7z2S.webp';
+    }
+  };
 
   return (
     <section className="py-24 bg-white">
@@ -16,7 +32,7 @@ export const Expertise: React.FC = () => {
              <Reveal direction="right">
                 <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-square lg:aspect-[4/5]">
                   <img 
-                    src="https://iili.io/fcB7z2S.webp" 
+                    src={getImageForLanguage()} 
                     alt={t('expertise_image_alt')}
                     className="w-full h-full object-cover"
                   />

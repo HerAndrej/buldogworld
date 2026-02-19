@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
             <Reveal delay={800}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth'})} 
                   className="group"
                 >
                   {t('order_guide')}

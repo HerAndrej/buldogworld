@@ -58,6 +58,7 @@ export const Problems: React.FC = () => {
                 </p>
              </div>
              <Button 
+              variant="success"
               href="https://payhip.com/b/vaAPR" 
               className="group payhip-buy-button"
               data-product="vaAPR"

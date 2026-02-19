@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection('hero')}>
           <img 
-            src="https://iili.io/fcBWQp4.png" 
+            src="https://iili.io/q2Xpfku.png" 
             alt="Bulldog World Logo" 
             className="h-10 w-auto object-contain" 
           />
@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           <button onClick={() => scrollToSection('problems')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_problems')}</button>
           <button onClick={() => scrollToSection('curriculum')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_curriculum')}</button>
           <button onClick={() => scrollToSection('testimonials')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_testimonials')}</button>
@@ -54,7 +54,7 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Language Switcher & CTA */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <LanguageSwitcher />
           <Button 
             variant={isScrolled ? 'primary' : 'secondary'} 
@@ -68,7 +68,7 @@ export const Header: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-brand-dark p-2"
+          className="lg:hidden text-brand-dark p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-xl p-4 flex flex-col gap-4 md:hidden animate-fade-in-down border-t border-gray-100">
+        <div className="absolute top-full left-0 right-0 bg-white shadow-xl p-4 flex flex-col gap-4 lg:hidden animate-fade-in-down border-t border-gray-100">
           <button onClick={() => scrollToSection('problems')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_problems')}</button>
           <button onClick={() => scrollToSection('curriculum')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_curriculum')}</button>
           <button onClick={() => scrollToSection('testimonials')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_testimonials')}</button>
