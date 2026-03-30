@@ -1,0 +1,21 @@
+env:
+  - variable: VITE_SUPABASE_URL
+    value: https://lgrfyuyllgfiberpbove.supabase.co
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: VITE_SUPABASE_ANON_KEY
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxncmZ5dXlsbGdmaWJlcnBib3ZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NzE3NDYsImV4cCI6MjA4ODU0Nzc0Nn0.AqhbJJziIsYE5-OS6ncC0T5wdlK5oSPkpNCTk6BjkV8
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: VITE_PADDLE_CLIENT_TOKEN
+    value: test_a730f144a7c777aeb24d70551ca
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: VITE_PADDLE_PRICE_ID
+    value: pri_01kkemczsx7wx7kxv0szmg38pt
+    availability:
+      - BUILD
+      - RUNTIME
