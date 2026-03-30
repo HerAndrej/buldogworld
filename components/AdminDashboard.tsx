@@ -115,7 +115,7 @@ export const AdminDashboard: React.FC = () => {
   };
 
   const handleRenameFile = async (oldName: string) => {
-    const newName = window.prompt("Unesite novo ime za fajl (OBAVEZNO DA BUDE: bulldog-en.pdf, bulldog-sr.pdf itd.):", oldName);
+    const newName = window.prompt("Unesite novo ime za fajl (OBAVEZNO DA BUDE: bulldog-en.pdf, bulldog-sr.zip itd.):", oldName);
     if (!newName || newName === oldName) return;
 
     setUploading(true);
