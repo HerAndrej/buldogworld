@@ -1,7 +1,16 @@
 import React from 'react';
 import { Download, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const Success: React.FC = () => {
+  const { language } = useLanguage();
+  
+  // Ako je VITE_SUPABASE_URL dostupan korsitimo ga, u suprotnom fallback na direktni link iz tvog uputstva
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lgrfyuyllgfiberpbove.supabase.co';
+  
+  // Formatiramo link ka bucketu koji si namestila (ebooks) i fajlu zavisno od jezika (bulldog-sr.pdf, bulldog-en.pdf...)
+  const downloadUrl = `${supabaseUrl}/storage/v1/object/public/ebooks/bulldog-${language}.pdf`;
+
   return (
     <div className="min-h-[70vh] flex items-center justify-center p-4">
       <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl max-w-lg w-full text-center">
@@ -14,8 +23,9 @@ export const Success: React.FC = () => {
           <span className="block italic">Your "Bulldog World" E-book is ready.</span>
         </p>
         <a 
-          href="/BulldogWorld-Ebook.pdf" 
-          download
+          href={downloadUrl} 
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto gap-3"
         >
           <Download className="w-6 h-6" />
