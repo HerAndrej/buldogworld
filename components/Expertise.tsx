@@ -3,9 +3,11 @@ import { HeartHandshake, Award, BookCheck, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { Button } from './Button';
 import { useTranslations } from '../hooks/useTranslations';
+import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
 
 export const Expertise: React.FC = () => {
   const t = useTranslations();
+  const { openCheckout } = usePaddleCheckout();
   const currentLanguage = localStorage.getItem('language') || 'en';
 
   const getImageForLanguage = () => {
@@ -100,7 +102,7 @@ export const Expertise: React.FC = () => {
 
             <Reveal delay={600} width="100%">
               <Button 
-                onClick={() => window.open('https://payhip.com/b/vaAPR', '_blank')} 
+                onClick={openCheckout} 
                 className="group mt-4"
               >
                 {t('buy_now')}

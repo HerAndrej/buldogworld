@@ -53,13 +53,14 @@ export const Reveal: React.FC<RevealProps> = ({
     <div 
       ref={ref} 
       className={className}
-      style={{ width, position: 'relative', overflow: 'hidden' }}
+      style={{ width, position: 'relative' }}
     >
       <div
         style={{
           transform: isVisible ? 'translate(0, 0)' : getTransform(),
           opacity: isVisible ? 1 : 0,
           transition: `all ${duration}ms cubic-bezier(0.5, 0, 0, 1) ${delay}ms`,
+          willChange: 'transform, opacity',
         }}
       >
         {children}

@@ -3,6 +3,7 @@ import { AlertCircle, HelpCircle, ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { Button } from './Button';
 import { useTranslations } from '../hooks/useTranslations';
+import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
 
 const PROBLEMS_KEYS = [
   'problem_1',
@@ -13,6 +14,7 @@ const PROBLEMS_KEYS = [
 
 export const Problems: React.FC = () => {
   const t = useTranslations();
+  const { openCheckout } = usePaddleCheckout();
 
   return (
     <section id="problems" className="py-24 bg-white relative">
@@ -59,9 +61,8 @@ export const Problems: React.FC = () => {
              </div>
              <Button 
               variant="success"
-              href="https://payhip.com/b/vaAPR" 
-              className="group payhip-buy-button"
-              data-product="vaAPR"
+              className="group"
+              onClick={openCheckout}
             >
                {t('buy_now')}
                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

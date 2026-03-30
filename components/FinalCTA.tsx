@@ -3,9 +3,11 @@ import { Button } from './Button';
 import { Check, ShieldCheck, Download, Zap, Star } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { useTranslations } from '../hooks/useTranslations';
+import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
 
 export const FinalCTA: React.FC = () => {
   const t = useTranslations();
+  const { openCheckout } = usePaddleCheckout();
 
   return (
     <section id="pricing" className="py-24 bg-white relative overflow-hidden">
@@ -81,7 +83,8 @@ export const FinalCTA: React.FC = () => {
 
                         <Button 
                           fullWidth 
-                          onClick={() => window.open('https://payhip.com/buy?link[]=vaAPR&parent_url=https%3A%2F%2Fwww.bulldogworlds.com%2F&type=fallback_direct&s=1&cart_links[]=vaAPR&qty[vaAPR]=1', '_self')}
+                          className="shimmer-btn"
+                          onClick={openCheckout}
                         >
                             {t('buy_now')}
                         </Button>

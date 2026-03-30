@@ -1,6 +1,7 @@
 import React from 'react';
 import { Award, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Button } from './Button';
+import { Reveal } from './Reveal';
 import { useTranslations } from '../hooks/useTranslations';
 
 export const Solution: React.FC = () => {
@@ -16,7 +17,7 @@ export const Solution: React.FC = () => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
-          <div className="w-full lg:w-1/2 flex justify-center">
+          <Reveal direction="left" width="100%" className="w-full lg:w-1/2 flex justify-center">
              <div className="relative group perspective-1000 w-full max-w-[400px]">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white/10 transform transition-transform group-hover:scale-105 duration-700">
                    <img 
@@ -31,47 +32,55 @@ export const Solution: React.FC = () => {
                 </div>
                 <div className="absolute -bottom-8 left-10 right-10 h-8 bg-black/40 blur-xl rounded-[100%]"></div>
              </div>
-          </div>
+          </Reveal>
 
           <div className="w-full lg:w-1/2 space-y-8">
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              {t('solution_title')}
-            </h2>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              {t('solution_subtitle')}
-            </p>
+            <Reveal direction="right" delay={100}>
+              <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                {t('solution_title')}
+              </h2>
+              <p className="text-lg text-gray-300 leading-relaxed mt-4">
+                {t('solution_subtitle')}
+              </p>
+            </Reveal>
             
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-brand-orange rounded-xl text-white">
-                  <Award size={24} />
+              <Reveal direction="right" delay={200}>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-brand-orange rounded-xl text-white">
+                    <Award size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-1">{t('solution_feature_1_title')}</h4>
+                    <p className="text-gray-400">{t('solution_feature_1_description')}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-1">{t('solution_feature_1_title')}</h4>
-                  <p className="text-gray-400">{t('solution_feature_1_description')}</p>
-                </div>
-              </div>
+              </Reveal>
               
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-brand-orange rounded-xl text-white">
-                  <ShieldCheck size={24} />
+              <Reveal direction="right" delay={300}>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-brand-orange rounded-xl text-white">
+                    <ShieldCheck size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-1">{t('solution_feature_2_title')}</h4>
+                    <p className="text-gray-400">{t('solution_feature_2_description')}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-1">{t('solution_feature_2_title')}</h4>
-                  <p className="text-gray-400">{t('solution_feature_2_description')}</p>
-                </div>
-              </div>
+              </Reveal>
             </div>
 
-            <div className="pt-4">
-              <Button 
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth'})} 
-                className="group"
-              >
-                {t('solution_cta')}
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
+            <Reveal direction="right" delay={400}>
+              <div className="pt-4">
+                <Button 
+                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth'})} 
+                  className="group"
+                >
+                  {t('solution_cta')}
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
+            </Reveal>
           </div>
           
         </div>

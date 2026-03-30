@@ -3,9 +3,11 @@ import { Menu, X } from 'lucide-react';
 import { Button } from './Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useTranslations } from '../hooks/useTranslations';
+import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
 
 export const Header: React.FC = () => {
   const t = useTranslations();
+  const { openCheckout } = usePaddleCheckout();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -46,11 +48,11 @@ export const Header: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          <button onClick={() => scrollToSection('problems')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_problems')}</button>
-          <button onClick={() => scrollToSection('curriculum')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_curriculum')}</button>
-          <button onClick={() => scrollToSection('testimonials')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_testimonials')}</button>
-          <button onClick={() => scrollToSection('gallery')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_gallery')}</button>
-          <button onClick={() => scrollToSection('faq')} className="text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_faq')}</button>
+          <button onClick={() => scrollToSection('problems')} className="nav-link text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_problems')}</button>
+          <button onClick={() => scrollToSection('curriculum')} className="nav-link text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_curriculum')}</button>
+          <button onClick={() => scrollToSection('testimonials')} className="nav-link text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_testimonials')}</button>
+          <button onClick={() => scrollToSection('gallery')} className="nav-link text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_gallery')}</button>
+          <button onClick={() => scrollToSection('faq')} className="nav-link text-gray-600 hover:text-brand-orange font-medium transition-colors">{t('nav_faq')}</button>
         </nav>
 
         {/* Language Switcher & CTA */}
@@ -58,9 +60,8 @@ export const Header: React.FC = () => {
           <LanguageSwitcher />
           <Button 
             variant={isScrolled ? 'primary' : 'secondary'} 
-            className="!px-6 !py-2 !text-base payhip-buy-button"
-            href="https://payhip.com/b/vaAPR"
-            data-product="vaAPR"
+            className="!px-6 !py-2 !text-base"
+            onClick={openCheckout}
           >
             {t('order_guide')}
           </Button>
@@ -75,9 +76,12 @@ export const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-xl p-4 flex flex-col gap-4 lg:hidden animate-fade-in-down border-t border-gray-100">
+      {/* Mobile Menu — animated slide-down */}
+      <div
+        className={`absolute top-full left-0 right-0 bg-white shadow-xl border-t border-gray-100 flex flex-col gap-4 lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100 p-4' : 'max-h-0 opacity-0 p-0'
+        }`}
+      >
           <button onClick={() => scrollToSection('problems')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_problems')}</button>
           <button onClick={() => scrollToSection('curriculum')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_curriculum')}</button>
           <button onClick={() => scrollToSection('testimonials')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_testimonials')}</button>
@@ -87,15 +91,12 @@ export const Header: React.FC = () => {
             <LanguageSwitcher />
           </div>
           <Button 
-            href="https://payhip.com/b/vaAPR" 
-            className="payhip-buy-button" 
-            data-product="vaAPR"
+            onClick={openCheckout}
             fullWidth
           >
             {t('order_guide')}
           </Button>
-        </div>
-      )}
+      </div>
     </header>
   );
 };

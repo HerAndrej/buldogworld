@@ -16,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props 
 }) => {
   // Ponovo koristimo tvoje originalne klase
-  const baseStyles = "inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2";
+  const baseStyles = "inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-1 active:scale-95 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-offset-2";
   
   const variants = {
     primary: "bg-brand-orange text-white hover:bg-[#D66C4A] shadow-lg shadow-orange-200 focus:ring-brand-orange",

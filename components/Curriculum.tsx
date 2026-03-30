@@ -132,10 +132,12 @@ export const Curriculum: React.FC = () => {
                   <div className="px-6 pb-6 pt-0 pl-[5.5rem]">
                     <ul className="space-y-3">
                       {chapter.items.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-3 text-gray-600 animate-fade-in" style={{ animationDelay: `${idx * 100}ms` }}>
-                          <div className="w-1.5 h-1.5 rounded-full bg-brand-orange/60"></div>
-                          {t(item)}
-                        </li>
+                        <Reveal key={idx} delay={idx * 80} direction="up" width="100%">
+                          <li className="flex items-center gap-3 text-gray-600">
+                            <div className="w-1.5 h-1.5 rounded-full bg-brand-orange/60"></div>
+                            {t(item)}
+                          </li>
+                        </Reveal>
                       ))}
                     </ul>
                     <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-2 text-sm text-gray-400">

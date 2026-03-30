@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bulldog World | Kako odgajati Francuskog buldoga</title>
     
-    <!-- Payhip SDK - Postavljen kao prvi element -->
-    <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Paddle.js SDK (Sandbox mode - ukloni Environment.set za produkciju) -->
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+      Paddle.Environment.set("sandbox");
+      Paddle.Initialize({ token: "%VITE_PADDLE_CLIENT_TOKEN%" });
+    </script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -29,18 +35,24 @@
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
-              serif: ['Playfair Display', 'serif'],
             },
             animation: {
               'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'fade-in': 'fadeIn 0.8s ease-out both',
+              'fade-in-down': 'fadeInDown 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards',
               'bounce-slow': 'bounce 3s infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'scale-up': 'scaleUp 0.3s ease-out forwards',
+              'float': 'float 4s ease-in-out infinite',
+              'shimmer': 'shimmer 2.5s ease-in-out infinite',
             },
             keyframes: {
               fadeInUp: {
                 '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeInDown: {
+                '0%': { opacity: '0', transform: 'translateY(-12px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
               },
               fadeIn: {
@@ -48,70 +60,85 @@
                 '100%': { opacity: '1' },
               },
               scaleUp: {
-                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '0%': { opacity: '0', transform: 'scale(0.88)' },
                 '100%': { opacity: '1', transform: 'scale(1)' },
-              }
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '-200% center' },
+                '100%': { backgroundPosition: '200% center' },
+              },
             }
           }
         }
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
       body {
         font-family: 'Inter', sans-serif;
       }
       
-      /* TOTAL RESET ZA PAYHIP DUGMICE - Vracamo tvoj dizajn */
-      .payhip-buy-button {
-        all: unset !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        cursor: pointer !important;
-        box-sizing: border-box !important;
-        
-        /* Tvoj originalni stil */
-        background-color: #E67E5C !important; /* Originalna narandzasta */
-        color: white !important;
-        font-family: 'Inter', sans-serif !important;
-        font-size: 1.125rem !important; /* text-lg */
-        font-weight: 600 !important;
-        padding: 1rem 2rem !important; /* px-8 py-4 */
-        border-radius: 9999px !important; /* rounded-full */
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 10px 15px -3px rgba(230, 126, 92, 0.3) !important;
-        text-decoration: none !important;
-        position: relative !important;
-      }
 
-      .payhip-buy-button:hover {
-        background-color: #D66C4A !important;
-        transform: translateY(-4px) !important;
-        box-shadow: 0 20px 25px -5px rgba(230, 126, 92, 0.4) !important;
-      }
-
-      .payhip-buy-button:active {
-        transform: translateY(-2px) !important;
-      }
-
-      /* Specijalna klasa za sekundarno (crno) dugme */
-      .payhip-buy-button-secondary {
-        background-color: #2D2A26 !important;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
-      }
-
-      .payhip-buy-button-secondary:hover {
-        background-color: #1a1816 !important;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
-      }
 
       .perspective-1000 {
         perspective: 1000px;
       }
       .scrollbar-hide::-webkit-scrollbar {
           display: none;
+      }
+
+      /* Gradient text utility */
+      .gradient-text {
+        background: linear-gradient(135deg, #E67E5C 0%, #F4A261 50%, #E67E5C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      /* Shimmer utility for CTA button */
+      .shimmer-btn {
+        background: linear-gradient(90deg, #E67E5C 0%, #F4A261 30%, #E67E5C 60%, #E67E5C 100%);
+        background-size: 200% auto;
+        animation: shimmer 2.5s ease-in-out infinite;
+        will-change: background-position;
+      }
+      .shimmer-btn:hover {
+        animation-play-state: paused;
+        background-color: #D66C4A !important;
+      }
+
+      /* Nav link underline slide-in */
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #E67E5C;
+        border-radius: 2px;
+        transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Accessibility: respect reduced motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   <script type="importmap">

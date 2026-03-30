@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
             
             <Reveal delay={400}>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-brand-dark tracking-tight">
-                {t('hero_title_part1')} <span className="text-brand-orange">{t('hero_title_part2')}</span> {t('hero_title_part3')}
+                {t('hero_title_part1')} <span className="gradient-text">{t('hero_title_part2')}</span> {t('hero_title_part3')}
               </h1>
             </Reveal>
             
@@ -89,7 +89,7 @@ export const Hero: React.FC = () => {
 
           <div className="relative w-full max-w-5xl mx-auto">
             <Reveal direction="up" delay={600} width="100%">
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white group">
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white group animate-float">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 <img 
                   src="https://iili.io/fcB7o42.webp" 
