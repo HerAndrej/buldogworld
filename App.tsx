@@ -10,7 +10,10 @@ import { Success } from './components/Success';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
-  const isSuccess = new URLSearchParams(window.location.search).get('success') === 'true';
+  const searchParams = new URLSearchParams(window.location.search);
+  // Paddle automatski dodaje _ptxn (Transaction ID) u link nakon uspešne kupovine.
+  // Zahtevamo da ovaj kod postoji kako bismo otežali ljudima da samo ukucaju ?success=true
+  const isSuccess = searchParams.get('success') === 'true' && searchParams.has('_ptxn');
 
   return (
     <LanguageProvider>
