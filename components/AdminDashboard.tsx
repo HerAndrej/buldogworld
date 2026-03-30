@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Mail, KeyRound, Loader2, LayoutDashboard, Database, ShoppingCart, Users, LogOut, Upload, Trash2, File, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { Mail, KeyRound, Loader2, LayoutDashboard, Database, ShoppingCart, Users, LogOut, Upload, Trash2, File, CheckCircle, XCircle, Clock, Edit2 } from 'lucide-react';
 import { Button } from './Button';
 
 type Tab = 'dashboard' | 'orders' | 'leads' | 'buckets';
@@ -112,6 +112,21 @@ export const AdminDashboard: React.FC = () => {
     setUploading(false);
     // reset input
     e.target.value = '';
+  };
+
+  const handleRenameFile = async (oldName: string) => {
+    const newName = window.prompt("Unesite novo ime za fajl (OBAVEZNO DA BUDE: bulldog-en.pdf, bulldog-sr.pdf itd.):", oldName);
+    if (!newName || newName === oldName) return;
+
+    setUploading(true);
+    const { error } = await supabase.storage.from('ebooks').move(oldName, newName);
+    
+    if (error) {
+      alert("Error renaming file: " + error.message);
+    } else {
+      fetchFiles();
+    }
+    setUploading(false);
   };
 
   const handleDeleteFile = async (name: string) => {
@@ -372,13 +387,20 @@ export const AdminDashboard: React.FC = () => {
                       <div className="col-span-3 text-sm text-gray-500">
                         {f.metadata ? formatBytes(f.metadata.size) : 'N/A'}
                       </div>
-                      <div className="col-span-1 text-right">
+                      <div className="col-span-1 text-right flex justify-end gap-1">
+                        <button 
+                          onClick={() => handleRenameFile(f.name)}
+                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          title="Preimenuj fajl"
+                        >
+                          <Edit2 size={18} />
+                        </button>
                         <button 
                           onClick={() => handleDeleteFile(f.name)}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Obriši fajl"
                         >
-                          <Trash2 size={18} className="ml-auto" />
+                          <Trash2 size={18} />
                         </button>
                       </div>
                     </div>
