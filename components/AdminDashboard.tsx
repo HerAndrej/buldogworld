@@ -95,6 +95,30 @@ export const AdminDashboard: React.FC = () => {
   };
 
   // --- Bucket Actions ---
+  const handleSpecificUpload = async (e: React.ChangeEvent<HTMLInputElement>, targetName: string) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    
+    setUploading(true);
+    // Alert the user if the file is extremely large to be patient
+    if (file.size > 50 * 1024 * 1024) {
+       console.log("Large file detected, uploading might take a while.");
+    }
+    const { error } = await supabase.storage.from('ebooks').upload(targetName, file, {
+      upsert: true,
+      cacheControl: '3600'
+    });
+    
+    if (error) {
+      alert("Greška pri otpremanju: " + error.message);
+    } else {
+      fetchFiles(); // Refresh
+      alert(`Paket ${targetName} je uspešno otpremljen!`);
+    }
+    setUploading(false);
+    e.target.value = '';
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
@@ -345,13 +369,13 @@ export const AdminDashboard: React.FC = () => {
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-3xl font-bold font-display text-gray-900">Upravljanje Fajlovima (Ebooks)</h2>
-                <p className="text-gray-500 mt-1">Ovde možete dodati nove verzije uputstava, PDF-ove ili druge proizvode koje klijenti skidaju.</p>
+                <h2 className="text-3xl font-bold font-display text-gray-900">Upravljanje Fajlovima (Paketima)</h2>
+                <p className="text-gray-500 mt-1">Ovde otpremate zvanične asete za svaki jezik koji kupci dobijaju.</p>
               </div>
               <div className="relative overflow-hidden group">
                  <Button disabled={uploading} className="gap-2">
                    {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload size={18} />}
-                   {uploading ? 'Otpremanje...' : 'Dodaj Novi Fajl'}
+                   {uploading ? 'Otpremanje...' : 'Slobodan Upload'}
                  </Button>
                  <input 
                    type="file" 
@@ -362,7 +386,46 @@ export const AdminDashboard: React.FC = () => {
                  />
               </div>
             </div>
+
+            {/* Specijalne kartice za oficijalne pakete */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {[
+                { id: 'en', name: 'Engleski Paket', file: 'bulldog-en.zip' },
+                { id: 'sr', name: 'Srpski Paket', file: 'bulldog-sr.zip' },
+                { id: 'de', name: 'Nemački Paket', file: 'bulldog-de.zip' },
+                { id: 'ru', name: 'Ruski Paket', file: 'bulldog-ru.zip' }
+              ].map(pkg => {
+                const fileExists = files.some(f => f.name === pkg.file);
+                return (
+                  <div key={pkg.id} className="bg-white p-5 border border-amber-100 rounded-2xl flex flex-col items-center text-center shadow-sm">
+                     <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mb-3">
+                       <File className="text-amber-500" size={24} />
+                     </div>
+                     <div className="font-bold text-gray-900">{pkg.name}</div>
+                     <div className="text-xs text-gray-500 mt-1 font-mono bg-gray-100 px-2 py-1 rounded">{pkg.file}</div>
+                     <div className="mt-3 w-full border-t border-gray-50 pt-3">
+                        <span className={`inline-block mb-3 px-3 py-1 text-xs font-medium rounded-full ${fileExists ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                          {fileExists ? 'Spremno za kupce' : 'Fali ZIP fajl'}
+                        </span>
+                     </div>
+                     <div className="relative overflow-hidden w-full mt-auto">
+                       <Button variant="outline" className="w-full text-sm py-2 shadow-sm" disabled={uploading}>
+                         {fileExists ? 'Zameni ZIP Fajl' : 'Dodaj ZIP Fajl'}
+                       </Button>
+                       <input 
+                         type="file" 
+                         accept=".zip"
+                         onChange={(e) => handleSpecificUpload(e, pkg.file)} 
+                         className="absolute inset-0 opacity-0 cursor-pointer"
+                         disabled={uploading}
+                       />
+                     </div>
+                  </div>
+                );
+              })}
+            </div>
             
+            <h3 className="text-xl font-bold font-display text-gray-900 mb-4">Svi fajlovi u bazi</h3>
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                <div className="p-4 bg-gray-50 border-b border-gray-200 grid grid-cols-12 font-semibold text-gray-600">
                 <div className="col-span-8">Ime fajla / Buket: ebooks</div>
