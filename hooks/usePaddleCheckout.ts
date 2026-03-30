@@ -36,7 +36,7 @@ export const usePaddleCheckout = () => {
           displayMode: 'overlay' as const,
           theme: 'dark' as const,
           locale: paddleLocale,
-          successUrl: window.location.origin + "/success",
+          successUrl: window.location.origin + "/?success=true",
         },
       };
 

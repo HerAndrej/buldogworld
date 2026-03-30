@@ -10,19 +10,24 @@ import { Success } from './components/Success';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
+  const isSuccess = new URLSearchParams(window.location.search).get('success') === 'true';
+
   return (
     <LanguageProvider>
       <Router>
         <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
           <Header />
           <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/success" element={<Success />} />
-              <Route path="/terms-of-service" element={<TermsOfService />} />
-              <Route path="/refund-policy" element={<RefundPolicy />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            </Routes>
+            {isSuccess ? (
+              <Success />
+            ) : (
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              </Routes>
+            )}
           </main>
           <Footer />
         </div>
