@@ -15,10 +15,18 @@ export const usePaddleCheckout = () => {
       const lang = (localStorage.getItem('language') ?? 'en') as SupportedLocale;
       const paddleLocale = PADDLE_LOCALE_MAP[lang] ?? 'en';
 
+      const priceId = import.meta.env.VITE_PADDLE_PRICE_ID as string;
+      
+      if (!priceId) {
+        alert("CRITIČNA GREŠKA: VITE_PADDLE_PRICE_ID ključ nije učitan u ovom okruženju! Proveri da li je env varijabla ubačena i restartuj server.");
+        console.error("Missing Paddle Price ID! Checkout aborted.");
+        return;
+      }
+
       const checkoutConfig = {
         items: [
           {
-            priceId: import.meta.env.VITE_PADDLE_PRICE_ID as string,
+            priceId: priceId,
             quantity: 1,
           },
         ],
