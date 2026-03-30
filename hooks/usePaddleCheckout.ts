@@ -107,6 +107,9 @@ export const usePaddleCheckout = () => {
         return;
       }
 
+      const sessionToken = Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('paddleSession', sessionToken);
+
       const checkoutConfig = {
         items: [
           {
@@ -120,7 +123,7 @@ export const usePaddleCheckout = () => {
           displayMode: 'overlay' as const,
           theme: 'light' as const,
           locale: paddleLocale,
-          successUrl: window.location.origin + "/?success=true",
+          successUrl: window.location.origin + "/?success=true&session=" + sessionToken,
         },
       };
 

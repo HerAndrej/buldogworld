@@ -33,7 +33,9 @@ const AppContent: React.FC<{ isSuccess: boolean }> = ({ isSuccess }) => {
 
 const App: React.FC = () => {
   const searchParams = new URLSearchParams(window.location.search);
-  const isSuccess = searchParams.get('success') === 'true';
+  const sessionToken = searchParams.get('session');
+  const storedSession = localStorage.getItem('paddleSession');
+  const isSuccess = searchParams.get('success') === 'true' && !!sessionToken && sessionToken === storedSession;
 
   return (
     <LanguageProvider>
