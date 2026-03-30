@@ -33,7 +33,7 @@ const AppContent: React.FC<{ isSuccess: boolean }> = ({ isSuccess }) => {
 
 const App: React.FC = () => {
   const searchParams = new URLSearchParams(window.location.search);
-  const isSuccess = searchParams.get('success') === 'true' && searchParams.has('_ptxn');
+  const isSuccess = searchParams.get('success') === 'true';
 
   return (
     <LanguageProvider>
