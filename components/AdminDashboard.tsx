@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Mail, KeyRound, Loader2, LayoutDashboard, Database, ShoppingCart, Users, LogOut, Upload, Trash2, File, CheckCircle, XCircle, Clock, Edit2 } from 'lucide-react';
+import { Mail, KeyRound, Loader2, LayoutDashboard, Database, ShoppingCart, Users, LogOut, Upload, Trash2, File, FileText, CheckCircle, XCircle, Clock, Edit2 } from 'lucide-react';
 import { Button } from './Button';
 
 type Tab = 'dashboard' | 'orders' | 'leads' | 'buckets';
@@ -388,7 +388,8 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Specijalne kartice za oficijalne pakete */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <h3 className="text-xl font-bold font-display text-gray-900 mb-4 tracking-tight">Glavni Proizvodi (Plaćeni ZIP paketi)</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
               {[
                 { id: 'en', name: 'Engleski Paket', file: 'bulldog-en.zip' },
                 { id: 'sr', name: 'Srpski Paket', file: 'bulldog-sr.zip' },
@@ -415,6 +416,44 @@ export const AdminDashboard: React.FC = () => {
                        <input 
                          type="file" 
                          accept=".zip"
+                         onChange={(e) => handleSpecificUpload(e, pkg.file)} 
+                         className="absolute inset-0 opacity-0 cursor-pointer"
+                         disabled={uploading}
+                       />
+                     </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <h3 className="text-xl font-bold font-display text-gray-900 mb-4 tracking-tight">Obrasci za Emailove (Besplatni PDF Vodiči)</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              {[
+                { id: 'en', name: 'Engleski Vodič', file: 'mistakes-en.pdf' },
+                { id: 'sr', name: 'Srpski Vodič', file: 'mistakes-sr.pdf' },
+                { id: 'de', name: 'Nemački Vodič', file: 'mistakes-de.pdf' },
+                { id: 'ru', name: 'Ruski Vodič', file: 'mistakes-ru.pdf' }
+              ].map(pkg => {
+                const fileExists = files.some(f => f.name === pkg.file);
+                return (
+                  <div key={pkg.id} className="bg-white p-5 border border-blue-100 rounded-2xl flex flex-col items-center text-center shadow-sm">
+                     <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-3">
+                       <FileText className="text-blue-500" size={24} />
+                     </div>
+                     <div className="font-bold text-gray-900">{pkg.name}</div>
+                     <div className="text-xs text-gray-500 mt-1 font-mono bg-gray-100 px-2 py-1 rounded">{pkg.file}</div>
+                     <div className="mt-3 w-full border-t border-gray-50 pt-3">
+                        <span className={`inline-block mb-3 px-3 py-1 text-xs font-medium rounded-full ${fileExists ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                          {fileExists ? 'Spremno za PDF' : 'Fali PDF fajl'}
+                        </span>
+                     </div>
+                     <div className="relative overflow-hidden w-full mt-auto">
+                       <Button variant="secondary" className="w-full text-sm py-2 shadow-sm" disabled={uploading}>
+                         {fileExists ? 'Zameni PDF Fajl' : 'Dodaj PDF Fajl'}
+                       </Button>
+                       <input 
+                         type="file" 
+                         accept=".pdf"
                          onChange={(e) => handleSpecificUpload(e, pkg.file)} 
                          className="absolute inset-0 opacity-0 cursor-pointer"
                          disabled={uploading}

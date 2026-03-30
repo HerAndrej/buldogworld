@@ -27,6 +27,11 @@ export const LeadMagnet: React.FC = () => {
 
       if (error) throw error;
       
+      // Auto-download the PDF
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lgrfyuyllgfiberpbove.supabase.co';
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/ebooks/mistakes-${language}.pdf`;
+      window.open(pdfUrl, '_blank');
+      
       setStatus('success');
       setEmail('');
     } catch (err) {
