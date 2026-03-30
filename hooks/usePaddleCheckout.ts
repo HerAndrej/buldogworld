@@ -118,7 +118,7 @@ export const usePaddleCheckout = () => {
         customData: { locale: lang },
         settings: {
           displayMode: 'overlay' as const,
-          theme: 'dark' as const,
+          theme: 'light' as const,
           locale: paddleLocale,
           successUrl: window.location.origin + "/?success=true",
         },
