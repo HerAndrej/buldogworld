@@ -67,13 +67,16 @@ export const Header: React.FC = () => {
           </Button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="lg:hidden text-brand-dark p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Controls */}
+        <div className="flex lg:hidden items-center gap-2">
+          <LanguageSwitcher />
+          <button 
+            className="text-brand-dark p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu — animated slide-down */}
@@ -87,9 +90,6 @@ export const Header: React.FC = () => {
           <button onClick={() => scrollToSection('testimonials')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_testimonials')}</button>
           <button onClick={() => scrollToSection('gallery')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_gallery')}</button>
           <button onClick={() => scrollToSection('faq')} className="text-left p-2 text-lg font-medium text-gray-700">{t('nav_faq')}</button>
-          <div className="border-t border-gray-100 pt-4">
-            <LanguageSwitcher />
-          </div>
           <Button 
             onClick={openCheckout}
             fullWidth
