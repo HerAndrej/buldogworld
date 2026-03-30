@@ -32,8 +32,38 @@ export const usePaddleCheckout = () => {
         name === 'checkout.payment.failed' ||
         name === 'checkout.completed'
       ) {
-        const email = data.customer?.email || data.payment?.customer?.email || data.shipping?.email;
-        if (!email) return;
+        let email = data.customer?.email || data.payment?.customer?.email || data.shipping?.email || data.checkout?.customer?.email;
+        
+        // Agresivno traženje mejla ako Paddle menja strukturu (desava se kod V2 retain API)
+        if (!email) {
+           try {
+             const jsonStr = JSON.stringify(data);
+             const m1 = jsonStr.match(/"email_address"\s*:\s*"([^"]+@[^"]+\.[^"]+)"/);
+             const m2 = jsonStr.match(/"email"\s*:\s*"([^"]+@[^"]+\.[^"]+)"/);
+             if (m1) email = m1[1];
+             else if (m2) email = m2[1];
+           } catch(e) {}
+        }
+        
+        // Ako kupac samo otvori checkout a još nije kucao mejl
+        if (!email && name === 'checkout.customer.created') {
+           return;
+        }
+
+        // Sačuvajmo uspešan mejl u lokalnu memoriju 
+        // jer Paddle checkout.completed ponekad nema email objekat
+        if (email) {
+           localStorage.setItem('lastPaddleEmail', email);
+        } else {
+           // Ako je email = undefined (npr. na checkout.completed)
+           // izvlačimo ga iz cache-a
+           email = localStorage.getItem('lastPaddleEmail') || '';
+        }
+
+        // Ako i dalje nema mejla a desio se completed/failed, stavljamo placeholder
+        if (!email) {
+           email = `nepoznat_${Date.now()}@checkout.paddle`;
+        }
 
         const paddleProductId = data.items?.[0]?.price?.product_id;
         const amountTotal = parseFloat(data.totals?.grand_total || '0') / 100;
