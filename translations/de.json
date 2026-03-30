@@ -124,5 +124,13 @@
   "terms_of_service": "Nutzungsbedingungen",
   "refund_policy": "Rückgaberecht",
   "contact": "Kontakt",
-  "all_rights_reserved": "© 2025 Bulldog World. Alle Rechte vorbehalten"
+  "all_rights_reserved": "© 2025 Bulldog World. Alle Rechte vorbehalten",
+  "lead_magnet_badge": "Kostenloser Mini-Ratgeber",
+  "lead_magnet_title": "Top 5 Fehler von Französische Bulldogge-Besitzern",
+  "lead_magnet_subtitle": "Geben Sie Ihre E-Mail ein und laden Sie sofort das PDF mit den 5 häufigsten Fehlern herunter, die Besitzer Tausende von Euro kosten.",
+  "lead_magnet_placeholder": "Ihre beste E-Mail-Adresse",
+  "lead_magnet_button": "Schick mir den kostenlosen Ratgeber",
+  "lead_magnet_subtext": "Kein Spam. Jederzeit abmeldbar.",
+  "lead_magnet_success": "Erfolg! Überprüfen Sie Ihren E-Mail-Posteingang.",
+  "lead_magnet_error": "Ein Fehler ist aufgetreten oder diese E-Mail ist bereits registriert."
 }

@@ -10,6 +10,7 @@ import { Gallery } from './Gallery';
 import { Guarantee } from './Guarantee';
 import { FAQ } from './FAQ';
 import { FinalCTA } from './FinalCTA';
+import { LeadMagnet } from './LeadMagnet';
 
 export const Home: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const Home: React.FC = () => {
       <Expertise />
       <Curriculum />
       <Testimonials />
+      <LeadMagnet />
       <Gallery />
       <Guarantee />
       <FAQ />

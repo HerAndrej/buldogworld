@@ -123,5 +123,13 @@
   "terms_of_service": "Uslovi korišćenja",
   "refund_policy": "Politika povraćaja novca",
   "contact": "Kontakt",
-  "all_rights_reserved": "© 2025 Bulldog World. Sva prava zadržana"
+  "all_rights_reserved": "© 2025 Bulldog World. Sva prava zadržana",
+  "lead_magnet_badge": "Besplatan Mini-vodič",
+  "lead_magnet_title": "Top 5 Grešaka Vlasnika Francuskih Buldoga",
+  "lead_magnet_subtitle": "Unesi svoj email i momentalno preuzmi PDF sa 5 najčešćih grešaka koje vlasnike koštaju na hiljade evra.",
+  "lead_magnet_placeholder": "Tvoja najbolja email adresa",
+  "lead_magnet_button": "Pošalji mi Besplatan Vodič",
+  "lead_magnet_subtext": "Bez spama. Možeš se odjaviti u bilo kom trenutku.",
+  "lead_magnet_success": "Uspešno! Tvoj vodič te čeka u email sandučetu.",
+  "lead_magnet_error": "Došlo je do greške ili je ovaj email već prijavljen."
 }

@@ -123,5 +123,13 @@
   "terms_of_service": "Terms of Service",
   "refund_policy": "Refund Policy",
   "contact": "Contact",
-  "all_rights_reserved": "© 2025 Bulldog World. All rights reserved"
+  "all_rights_reserved": "© 2025 Bulldog World. All rights reserved",
+  "lead_magnet_badge": "Free Mini-Guide",
+  "lead_magnet_title": "Top 5 Mistakes of French Bulldog Owners",
+  "lead_magnet_subtitle": "Enter your email and instantly download the PDF with the 5 most common mistakes that cost owners thousands of dollars.",
+  "lead_magnet_placeholder": "Your best email address",
+  "lead_magnet_button": "Send me the Free Guide",
+  "lead_magnet_subtext": "No spam. Unsubscribe at any time.",
+  "lead_magnet_success": "Success! Check your email inbox.",
+  "lead_magnet_error": "An error occurred or this email is already registered."
 }
