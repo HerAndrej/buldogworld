@@ -14,38 +14,25 @@ const AppContent: React.FC<{ isSuccess: boolean }> = ({ isSuccess }) => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
 
-  if (isAdmin) {
-    return (
-      <Routes>
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col font-sans bg-cream-50/50">
-      <Header />
+      {!isAdmin && <Header />}
       <main className="flex-grow">
-        {isSuccess ? (
-          <Success />
-        ) : (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/refund-policy" element={<RefundPolicy />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          </Routes>
-        )}
+        <Routes>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/" element={isSuccess ? <Success /> : <Home />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
       </main>
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   );
 };
 
 const App: React.FC = () => {
   const searchParams = new URLSearchParams(window.location.search);
-  // Paddle automatski dodaje _ptxn (Transaction ID) u link nakon uspešne kupovine.
-  // Zahtevamo da ovaj kod postoji kako bismo otežali ljudima da samo ukucaju ?success=true
   const isSuccess = searchParams.get('success') === 'true' && searchParams.has('_ptxn');
 
   return (
