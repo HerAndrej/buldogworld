@@ -9,11 +9,22 @@
 
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Paddle.js SDK (Sandbox mode - ukloni Environment.set za produkciju) -->
+    <!-- Paddle.js SDK -->
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-      Paddle.Environment.set("sandbox");
-      Paddle.Initialize({ token: "%VITE_PADDLE_CLIENT_TOKEN%" });
+      Paddle.Environment.set("sandbox"); // Ukloni u produkciji
+      
+      // Global event delegator for React
+      window.paddleEventCallback = function(data) {
+        if (typeof window.onPaddleEvent === 'function') {
+          window.onPaddleEvent(data);
+        }
+      };
+
+      Paddle.Initialize({ 
+        token: "%VITE_PADDLE_CLIENT_TOKEN%",
+        eventCallback: window.paddleEventCallback 
+      });
     </script>
 
     <script>
