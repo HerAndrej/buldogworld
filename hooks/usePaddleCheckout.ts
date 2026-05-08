@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
 
-// Supported language codes for the ebook
 type SupportedLocale = 'en' | 'sr' | 'de' | 'ru';
 
 declare global {
@@ -12,78 +10,38 @@ declare global {
 
 const PADDLE_LOCALE_MAP: Record<SupportedLocale, string> = {
   en: 'en',
-  sr: 'en', // Paddle doesn't support sr, fallback to English UI
+  sr: 'en',
   de: 'de',
-  ru: 'en', // Paddle doesn't support ru, fallback to English UI
+  ru: 'en',
 };
 
 export const usePaddleCheckout = () => {
   useEffect(() => {
-    window.onPaddleEvent = async (event: any) => {
+    window.onPaddleEvent = (event: any) => {
       if (!event || !event.name || !event.data) return;
-      
+
       const { name, data } = event;
 
-      // Hvatamo email cim kupac popuni formu, ali jos nije konacno platio (pending status - abandoned cart)
-      // Takodje, pratimo kada transakcija bude vracena kao declined, ili prosla uspesno!
       if (
-        name === 'checkout.customer.created' || 
-        name === 'checkout.customer.updated' || 
-        name === 'checkout.payment.failed' ||
+        name === 'checkout.customer.created' ||
+        name === 'checkout.customer.updated' ||
         name === 'checkout.completed'
       ) {
-        let email = data.customer?.email || data.payment?.customer?.email || data.shipping?.email || data.checkout?.customer?.email;
-        
-        // Agresivno traženje mejla ako Paddle menja strukturu (desava se kod V2 retain API)
-        if (!email) {
-           try {
-             const jsonStr = JSON.stringify(data);
-             const m1 = jsonStr.match(/"email_address"\s*:\s*"([^"]+@[^"]+\.[^"]+)"/);
-             const m2 = jsonStr.match(/"email"\s*:\s*"([^"]+@[^"]+\.[^"]+)"/);
-             if (m1) email = m1[1];
-             else if (m2) email = m2[1];
-           } catch(e) {}
-        }
-        
-        // Ako kupac samo otvori checkout a još nije kucao mejl
-        if (!email && name === 'checkout.customer.created') {
-           return;
-        }
+        const email =
+          data.customer?.email ||
+          data.payment?.customer?.email ||
+          data.checkout?.customer?.email ||
+          '';
 
-        // Sačuvajmo uspešan mejl u lokalnu memoriju 
-        // jer Paddle checkout.completed ponekad nema email objekat
         if (email) {
-           localStorage.setItem('lastPaddleEmail', email);
-        } else {
-           // Ako je email = undefined (npr. na checkout.completed)
-           // izvlačimo ga iz cache-a
-           email = localStorage.getItem('lastPaddleEmail') || '';
+          localStorage.setItem('lastPaddleEmail', email);
         }
 
-        // Ako i dalje nema mejla a desio se completed/failed, stavljamo placeholder
-        if (!email) {
-           email = `nepoznat_${Date.now()}@checkout.paddle`;
-        }
-
-        const paddleProductId = data.items?.[0]?.price?.product_id;
-        const amountTotal = parseFloat(data.totals?.grand_total || '0') / 100;
-        const currency = data.currency_code || 'USD';
-        
-        // Ponekad transaction_id u ranim fazama mozda nije definisan, ali ako jeste da ga iskoristimo
-        const transactionId = data.transaction_id || data.id;
-
-        try {
-          await supabase.from('orders').upsert({
-             email,
-             paddle_order_id: transactionId || `pending_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-             paddle_product_id: paddleProductId,
-             amount_total: amountTotal,
-             currency,
-             status: name === 'checkout.completed' ? 'completed' : (name === 'checkout.payment.failed' ? 'failed' : 'pending'),
-             locale: localStorage.getItem('language') || 'en'
-          }, { onConflict: 'paddle_order_id' });
-        } catch (err) {
-          console.error("Error saving pending order to DB", err);
+        if (name === 'checkout.completed') {
+          const txnId = data.transaction_id || data.id || '';
+          if (txnId) {
+            localStorage.setItem('paddleTransactionId', txnId);
+          }
         }
       }
     };
@@ -95,40 +53,29 @@ export const usePaddleCheckout = () => {
 
   const openCheckout = () => {
     if (typeof window !== 'undefined' && window.Paddle) {
-      // Read current language selected by the user
       const lang = (localStorage.getItem('language') ?? 'en') as SupportedLocale;
       const paddleLocale = PADDLE_LOCALE_MAP[lang] ?? 'en';
-
       const priceId = (import.meta.env.VITE_PADDLE_PRICE_ID as string)?.trim();
 
       if (!priceId) {
-        alert("CRITIČNA GREŠKA: VITE_PADDLE_PRICE_ID ključ nije učitan u ovom okruženju! Proveri da li je env varijabla ubačena i restartuj server.");
-        console.error("Missing Paddle Price ID! Checkout aborted.");
+        alert('Greška: VITE_PADDLE_PRICE_ID nije podešen. Restartuj dev server.');
         return;
       }
 
       const sessionToken = Math.random().toString(36).substring(2, 15);
       localStorage.setItem('paddleSession', sessionToken);
 
-      const checkoutConfig = {
-        items: [
-          {
-            priceId: priceId,
-            quantity: 1,
-          },
-        ],
-        // Pass language to Edge Function via webhook customData
+      window.Paddle.Checkout.open({
+        items: [{ priceId, quantity: 1 }],
         customData: { locale: lang },
         settings: {
           displayMode: 'overlay' as const,
           theme: 'light' as const,
           locale: paddleLocale,
-          successUrl: window.location.origin + "/?success=true&session=" + sessionToken,
+          successUrl:
+            window.location.origin + '/?success=true&session=' + sessionToken,
         },
-      };
-
-      console.log('Initiating Paddle checkout with config:', checkoutConfig);
-      window.Paddle.Checkout.open(checkoutConfig);
+      });
     }
   };
 
