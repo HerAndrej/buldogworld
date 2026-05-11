@@ -12,8 +12,6 @@
     <!-- Paddle.js SDK -->
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-      Paddle.Environment.set("sandbox"); // Ukloni u produkciji
-      
       // Global event delegator for React
       window.paddleEventCallback = function(data) {
         if (typeof window.onPaddleEvent === 'function') {
@@ -21,9 +19,9 @@
         }
       };
 
-      Paddle.Initialize({ 
+      Paddle.Initialize({
         token: "%VITE_PADDLE_CLIENT_TOKEN%",
-        eventCallback: window.paddleEventCallback 
+        eventCallback: window.paddleEventCallback
       });
     </script>
 

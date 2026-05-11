@@ -51,31 +51,50 @@ export const usePaddleCheckout = () => {
     };
   }, []);
 
-  const openCheckout = () => {
-    if (typeof window !== 'undefined' && window.Paddle) {
-      const lang = (localStorage.getItem('language') ?? 'en') as SupportedLocale;
-      const paddleLocale = PADDLE_LOCALE_MAP[lang] ?? 'en';
-      const priceId = (import.meta.env.VITE_PADDLE_PRICE_ID as string)?.trim();
+  const openCheckout = async () => {
+    if (typeof window === 'undefined' || !window.Paddle) return;
 
-      if (!priceId) {
-        alert('Greška: VITE_PADDLE_PRICE_ID nije podešen. Restartuj dev server.');
-        return;
-      }
+    const lang = (localStorage.getItem('language') ?? 'en') as SupportedLocale;
+    const paddleLocale = PADDLE_LOCALE_MAP[lang] ?? 'en';
+    const priceId = (import.meta.env.VITE_PADDLE_PRICE_ID as string)?.trim();
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lgrfyuyllgfiberpbove.supabase.co';
 
-      const sessionToken = Math.random().toString(36).substring(2, 15);
-      localStorage.setItem('paddleSession', sessionToken);
+    if (!priceId) {
+      alert('Greška: VITE_PADDLE_PRICE_ID nije podešen.');
+      return;
+    }
+
+    const sessionToken = Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('paddleSession', sessionToken);
+
+    const successUrl = window.location.origin + '/?success=true&session=' + sessionToken;
+
+    try {
+      const res = await fetch(`${supabaseUrl}/functions/v1/create-checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          price_id: priceId,
+          locale: lang,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Failed to create checkout');
+
+      const { transaction_id } = await res.json();
 
       window.Paddle.Checkout.open({
-        items: [{ priceId, quantity: 1 }],
-        customData: { locale: lang },
+        transactionId: transaction_id,
         settings: {
           displayMode: 'overlay' as const,
           theme: 'light' as const,
           locale: paddleLocale,
-          successUrl:
-            window.location.origin + '/?success=true&session=' + sessionToken,
+          successUrl,
         },
       });
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Could not open checkout. Please try again.');
     }
   };
 
